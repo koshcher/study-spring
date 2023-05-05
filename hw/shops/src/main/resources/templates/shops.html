@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shops list</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <h1>Look at our shops:</h1>
+        <form th:action="@{/add}">
+            <button type="submit">Create new</button>
+        </form>
+    </div>
+
+    <form>
+        <h2>Search by:</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: end; justify-content: space-between;">
+            <div>
+                <label for="name">Name:</label>
+                <input name="name" id="name" placeholder="Name" />
+            </div>
+            <div>
+                <label for="category">Category:</label>
+                <input name="category" id="category" placeholder="Category" />
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input name="address" id="address" placeholder="Address" />
+            </div>
+            <input type="submit" value="Search" />
+        </div>
+    </form>
+
+    <div th:each="shop : ${shops}">
+        <div style="border-bottom: 1px solid white; padding-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                <h3 th:text="${shop.name}"/>
+                <span th:text="${shop.email}"/>
+            </div>
+            <p th:text="${shop.description}"/>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <form th:action="${shop.link}">
+                    <button type="submit">Visit website</button>
+                </form>
+                <form th:action="'/' + ${shop.id}">
+                    <button type="submit">View details</button>
+                </form>
+                <form th:action="'/edit/' + ${shop.id}">
+                    <button type="submit">Edit</button>
+                </form>
+                <form th:action="'/delete/' + ${shop.id}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

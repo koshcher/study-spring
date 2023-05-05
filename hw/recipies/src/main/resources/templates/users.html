@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <title>Sign in</title>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+  />
+</head>
+<body class="container">
+  <h1>Users</h1>
+  <ul th:each="user : ${users}">
+    <li  style="display: flex; gap: 10px; justify-content: space-between;">
+      <span th:text="${user.getLogin()}"></span>
+      <div th:each="role: ${user.getRoles()}" style="display: flex; gap: 10px">
+        <span th:text="${role}"></span>
+      </div>
+    </li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add shop</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+
+  <style>
+    input {
+      width: 100%;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>Edit shop</h1>
+  <form th:action="@{/edit}" method="post">
+    <input th:value="${shop.id}" name="id" type="hidden" />
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" name="name" placeholder="Name" th:value="${shop.name}" />
+    </div>
+    <div>
+      <label for="address">Address:</label>
+      <input id="address" name="address" placeholder="Address" th:value="${shop.address}" />
+    </div>
+    <div>
+      <label for="phone">Phone:</label>
+      <input id="phone" name="phone" placeholder="Phone" th:value="${shop.phone}" />
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input name="email" id="email" type="email" placeholder="Email" th:value="${shop.email}" />
+    </div>
+    <div>
+      <label for="link">Website link:</label>
+      <input id="link" name="link" type="url" placeholder="Website link" th:value="${shop.link}" />
+    </div>
+    <div>
+      <label for="category">Category:</label>
+      <input id="category" name="category" placeholder="Category" th:value="${shop.category}" />
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" placeholder="Description" th:text="${shop.description}"></textarea>
+    </div>
+    <input type="submit" value="Edit" />
+  </form>
+</body>
+</html>

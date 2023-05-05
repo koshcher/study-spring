@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <title>Recipes</title>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+  />
+</head>
+<body class="container">
+
+  <header>
+    <div style="display: flex; justify-content: space-between; align-items: center;"  >
+      <h1>Recipe list:</h1>
+      <form th:action="@{/recipes/new}">
+        <button type="submit">Create</button>
+      </form>
+    </div>
+
+    <form th:action="@{/}" method="get">
+      <label for="recipeName">Recipe name:</label>
+      <input type="text" name="recipeName" id="recipeName" th:value="${search.recipeName}">
+
+      <label for="products">Products:</label>
+      <select name="products" id="products" multiple>
+        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"
+          th:selected="${search.products.contains(product.id)}"
+        ></option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+
+  <div th:each="recipe : ${recipes}">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h3 th:text="${recipe.name}"></h3>
+        <p th:text="${recipe.description}"></p>
+      </div>
+
+      <div style="display: flex; gap: 1rem">
+        <form th:action="'/recipes/delete/' + ${recipe.id}" method="get">
+          <button type="submit">Delete</button>
+        </form>
+        <form th:action="'/recipes/' + ${recipe.id}" method="get">
+          <button type="submit">Details</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; gap: 10px">
+    <a th:href="@{|?page=${page}|}"  th:text="${page + 1}" th:each="page : ${#numbers.sequence(0, recipes.totalPages - 1)}"></a>
+  </div>
+</body>
+</html>

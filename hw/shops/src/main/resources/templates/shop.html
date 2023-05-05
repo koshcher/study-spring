@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${shop.name}"/>
+  <meta name="description" th:content="${shop.description}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</head>
+<body>
+
+  <h1 th:text="${shop.name}" />
+  <p th:text="${shop.description}" />
+
+  <h3>Contacts</h3>
+  <ul>
+    <li th:text="'Phone: ' + ${shop.phone}" />
+    <li th:text="'Address: ' + ${shop.address}" />
+    <li th:text="'Email: ' + ${shop.email}" />
+  </ul>
+
+  <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+    <form th:action="@{/}">
+      <button type="submit">Back to list</button>
+    </form>
+    <form th:action="${shop.link}">
+      <button type="submit">Visit website</button>
+    </form>
+    <form th:action="'/' + ${shop.id}">
+      <button type="submit">View details</button>
+    </form>
+    <form th:action="'/edit/' + ${shop.id}">
+      <button type="submit">Edit</button>
+    </form>
+    <form th:action="'/delete/' + ${shop.id}">
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <title>New recipe</title>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@picocss/pico@next/css/pico.min.css"
+  />
+</head>
+<body class="container">
+  <main>
+
+    <form th:action="@{/recipes/new}" method="post">
+      <label for="name">
+        Name
+        <input type="text" id="name" name="name" placeholder="Name">
+      </label>
+
+      <label for="description">
+        Description
+        <input type="text" id="description" name="description" placeholder="Description">
+      </label>
+
+      <label for="url">
+        Link to resource
+        <input type="url" id="url" name="url" placeholder="Link to resource">
+      </label>
+
+      <div style="display: flex; gap: 1rem;">
+        <button type="submit">Create</button>
+        <a role="button" th:href="@{/}" style="height: fit-content;">Back</a>
+      </div>
+    </form>
+
+  </main>
+</body>
+</html>
