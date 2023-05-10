@@ -24,9 +24,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-
-
+    
     @GetMapping("/login")
     public String login() {
         return "login";

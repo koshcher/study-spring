@@ -18,6 +18,7 @@ import java.util.Optional;
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Optional<Recipe> getRecipeById(Long id);
 
+
     @Query("select recipe from Recipe as recipe " +
             "join Component as component on component.recipe.id = recipe.id " +
             "join Product as product on product.id = component.product.id " +

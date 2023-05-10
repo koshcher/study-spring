@@ -3,6 +3,7 @@ package ua.step.recipes.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Getter
@@ -26,6 +27,9 @@ public class Recipe {
     private String description;
 
     private String url;
+
+    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime updated = LocalDateTime.now();
 
     @NonNull
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
