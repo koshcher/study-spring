@@ -2,7 +2,6 @@ package rk.dictionary.dictionary;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.hibernate.annotations.Comment;
 
 @Data
 @Entity

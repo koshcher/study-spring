@@ -1,4 +1,4 @@
-package rk.dictionary;
+package rk.dictionary.config;
 
 import com.sun.net.httpserver.HttpContext;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="translate.js"></script>
-    <link rel="stylesheet" href="https://www.unpkg.com/mirabo@0.0.4/mirabo.css">
+    <link rel="stylesheet" href="https://www.unpkg.com/mirabo@0.0.5/mirabo.css">
     <title>Dictionary</title>
 </head>
 <body>
@@ -17,5 +17,19 @@
         <input type="submit" value="Check" id="check">
     </form>
     <h2 id="result-message"></h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Word</th>
+                <th>Attempt</th>
+                <th>Is correct</th>
+            </tr>
+        </thead>
+        <tbody id="stats">
+
+        </tbody>
+    </table>
 </body>
 </html>

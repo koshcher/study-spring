@@ -3,11 +3,11 @@ package rk.dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rk.dictionary.attempt.TranslateResultAttempt;
+import rk.dictionary.translation.TranslateService;
+
+import java.util.List;
 
 @RestController
 public class TranslateController {
@@ -28,5 +28,10 @@ public class TranslateController {
                 attempt.getUser(), attempt.getDictionary(), attempt.getResultAttempt(), correct
         );
         return ResponseEntity.ok(resultAttempt);
+    }
+
+    @GetMapping("/stats")
+    public ResponseEntity<List<TranslateResultAttempt>> getStats(@RequestParam("username") String username) {
+        return ResponseEntity.ok(translateService.getUserStats(username));
     }
 }

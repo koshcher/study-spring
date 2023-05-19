@@ -27,13 +27,13 @@ public class InitDatabase {
     @Autowired
     private RecipeRepository recipeRepository;
 
-    @Bean
-    public CommandLineRunner init() {
-        return args -> {
-            initUsers();
-            initProducts();
-        };
-    }
+        @Bean
+        public CommandLineRunner init() {
+            return args -> {
+                initUsers();
+                initProducts();
+            };
+        }
 
     public void initUsers() {
         RecipeUser recipeUser = new RecipeUser();

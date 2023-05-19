@@ -11,6 +11,25 @@ function updateWord() {
     })
 }
 
+function stats(username) {
+    fetch(`/stats?username=${username}`).then(data => data.json())
+        .then(data => {
+            const statsList = document.getElementById("stats");
+            statsList.innerHTML = '';
+            for (let i = 0; i < data.length; ++i) {
+                const attempt = data[i];
+                console.log(attempt)
+                statsList.innerHTML += `<tr>
+    <td>${attempt.id}</td>
+    <td>${attempt.dictionary.word}</td>
+    <td>${attempt.resultAttempt}</td>
+    <td>${attempt.correct ? "correct" : "incorrect"}</td>
+</tr>`
+            }
+        })
+
+}
+
 
 onload = function () {
      updateWord();
@@ -22,6 +41,7 @@ onload = function () {
         const word = document.getElementById("dictionary-word").innerText;
         const attempt =  document.getElementById("result-attempt").value;
         const userName = document.getElementById("user-name").value;
+
 
         const data = {
             user: {
@@ -44,7 +64,9 @@ onload = function () {
         }).then(output => output.json()).then(res => {
             document.getElementById("result-message").innerText = res.correct ? "Correct" : "Wrong"
             console.log(res)
+        }).then(() => {
+            updateWord();
+            stats(userName)
         })
-
     }
 }
