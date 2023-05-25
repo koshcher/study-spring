@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Towns</title>
+    <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="{
+    showForm: false
+ }">
+
+    <div class="between">
+        <h1>Towns</h1>
+        <button @click="showForm=!showForm">Add</button>
+    </div>
+
+    <form th:action="@{/add}" method="post" x-show="showForm" style="margin-bottom: 1rem">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name"  placeholder="name">
+
+        <label for="history">History</label>
+        <textarea name="history" id="history" placeholder="history"></textarea>
+
+        <div class="between">
+            <label>
+                Residents count
+                <input type="number" name="residentsCount" placeholder="residents count">
+            </label>
+            <label>
+                X
+                <input type="number" name="x" placeholder="x">
+            </label>
+            <label>
+                Y
+                <input type="number" name="y"  placeholder="y">
+            </label>
+        </div>
+        <input type="submit" value="Confirm">
+    </form>
+
+    <form th:action="@{/}" method="get" style="margin-bottom: 1rem">
+
+        <label for="nameSearch">Search by name</label>
+        <input type="text" name="name" th:value="${param.name}" placeholder="Search by name" id="nameSearch">
+
+        <label for="nameSearch">Residents count</label>
+        <input type="text" name="residentsCount" th:value="${param.residentsCount}" placeholder="Search by residents count" id="residentsCountSearch">
+
+        <label for="nameSearch">Name search</label>
+        <input type="text" name="history" th:value="${param.history}" placeholder="Search by history" id="historySearch">
+
+        <input type="submit" value="Search">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Residents</th>
+                <th>History</th>
+                <th>X</th>
+                <th>Y</th>
+                <td></td>
+            </tr>
+        </thead>
+        <tr th:each="town: ${towns}">
+            <td th:text="${town.id}"></td>
+            <td th:text="${town.name}"></td>
+            <td th:text="${town.residentsCount}"></td>
+            <td th:text="${town.history}"></td>
+            <td th:text="${town.x}"></td>
+            <td th:text="${town.y}"></td>
+            <td>
+                <a th:href="@{/delete/{id}(id=${town.id})}" role="button">Delete</a>
+                <a th:href="@{/edit/{id}(id=${town.id})}" role="button">Edit</a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apartments</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+ <th:block th:replace="~{home :: navbar}"></th:block>
+
+ <div style="display: flex; flex-direction: column;">
+   <a th:href="@{/rentals(filter='start-this-month')}">Start rent an apartment this month</a>
+   <a th:href="@{/rentals(filter='end-this-month')}">Lease expires within a month</a>
+   <a th:href="@{/rentals(filter='avg-less-month')}">Average rental period less than a month</a>
+   <a th:href="@{/rentals(filter='avg-more-year')}">Average lease term over a year</a>
+ </div>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Client id</th>
+    <th>Client name</th>
+    <th>Apartment id</th>
+    <th>Apartment price</th>
+    <th>Start date</th>
+    <th>End date</th>
+    <th></th>
+  </tr>
+  <tr th:each="rental : ${rentals}">
+    <td th:text="${rental.id}"></td>
+    <td th:text="${rental.client.id}"></td>
+    <td th:text="${rental.client.name}"></td>
+    <td th:text="${rental.apartment.id}"></td>
+    <td th:text="${rental.apartment.price}"></td>
+    <td th:text="${rental.startDate}"></td>
+    <td th:text="${rental.endDate}"></td>
+  </tr>
+</table>
+</body>
+</html>

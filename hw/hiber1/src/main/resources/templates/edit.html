@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+    <title>Edit Town</title>
+</head>
+<body>
+  <h1>Edit town</h1>
+  <form th:action="@{/edit}" method="post">
+    <input type="hidden" name="id" th:value="${town.id}">
+
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" th:value="${town.name}" placeholder="name">
+
+    <label for="history">History</label>
+    <textarea name="history" id="history" th:text="${town.history}" placeholder="history"></textarea>
+
+    <div class="between">
+      <label>
+        Residents count
+        <input type="number" name="residentsCount" th:value="${town.residentsCount}" placeholder="residents count">
+      </label>
+      <label>
+        X
+        <input type="number" name="x" th:value="${town.x}" placeholder="x">
+      </label>
+      <label>
+        Y
+        <input type="number" name="y" th:value="${town.y}" placeholder="y">
+      </label>
+    </div>
+    <input type="submit" value="Confirm">
+  </form>
+</body>
+</html>

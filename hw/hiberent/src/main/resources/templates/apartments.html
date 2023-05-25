@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apartments</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+ <th:block th:replace="~{home :: navbar}"></th:block>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Price</th>
+    <th>District</th>
+    <th>Count of rooms</th>
+  </tr>
+  <tr th:each="apartment : ${apartments}">
+    <td th:text="${apartment.id}"></td>
+    <td th:text="${apartment.price}"></td>
+    <td th:text="${apartment.district}"></td>
+    <td th:text="${apartment.roomCount}"></td>
+  </tr>
+</table>
+</body>
+</html>

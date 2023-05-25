@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+    <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+    <th:block th:replace="~{home :: navbar}"></th:block>
+
+    <button onclick="toggleAddForm()">Add</button>
+
+    <form hidden id="add" th:action="@{/clients/new}" method="post" style="margin-bottom: 1rem;">
+        <div class="between">
+            <label>
+                NAME
+                <input type="text" name="name">
+            </label>
+            <label>
+                SURNAME
+                <input type="text" name="surname">
+            </label>
+            <label>
+                PHONE
+                <input type="tel" name="phone">
+            </label>
+        </div>
+
+        <div class="between">
+            <label>
+                Prefer district:
+                <input type="text" th:value="${param.district}" name="preferDistrict" placeholder="Prefer district">
+            </label>
+            <label>
+                Prefer price:
+                <input type="number" th:value="${param.price}" name="preferPrice" placeholder="Prefer price">
+            </label>
+            <label>
+                Prefer room count:
+                <input type="number" th:value="${param.roomCount}" name="preferRoomCount" placeholder="Prefer room count">
+            </label>
+        </div>
+        <input type="submit" value="Add">
+    </form>
+
+    <form th:action="@{/}">
+        <div class="between">
+            <label>
+                Name and surname:
+                <input type="text" th:value="${param.name}" name="name" placeholder="Name and surname">
+            </label>
+            <label>
+                Phone:
+                <input type="tel" th:value="${param.phone}" name="phone" placeholder="Phone">
+            </label>
+        </div>
+
+        <div class="between">
+            <label>
+                Prefer district:
+                <input type="text" th:value="${param.district}" name="district" placeholder="Prefer district">
+            </label>
+            <label>
+                Prefer price:
+                <input type="number" th:value="${param.price}" name="price" placeholder="Prefer price">
+            </label>
+            <label>
+                Prefer room count:
+                <input type="number" th:value="${param.roomCount}" name="roomCount" placeholder="Prefer room count">
+            </label>
+        </div>
+        <input type="submit" value="Search">
+    </form>
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone</th>
+            <th>Prefer district</th>
+            <th>Prefer price</th>
+            <th>Prefer room count</th>
+            <th></th>
+        </tr>
+        <tr th:each="client : ${clients}">
+            <td th:text="${client.id}"></td>
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.surname}"></td>
+            <td th:text="${client.phone}"></td>
+            <td th:text="${client.preferDistrict}"></td>
+            <td th:text="${client.preferPrice}"></td>
+            <td th:text="${client.preferRoomCount}"></td>
+            <td>
+                <a th:href="@{/clients/delete/{id}(id=${client.id})}">Delete</a>
+                <a th:href="@{/clients/edit/{id}(id=${client.id})}">Edit</a>
+            </td>
+        </tr>
+    </table>
+</body>
+
+<script >
+    function toggleAddForm() {
+        const form = document.getElementById('add');
+        form.hidden = !form.hidden;
+    }
+</script>
+
+</html>

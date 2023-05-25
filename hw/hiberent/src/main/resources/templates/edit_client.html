@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit client</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+  <th:block th:replace="~{home :: navbar}"></th:block>
+
+  <h1 th:text="'Edit client ' + ${client.name}"></h1>
+
+  <form th:action="@{/clients/edit}" method="post">
+    <input type="hidden" name="id" th:value="${client.id}">
+    <label>
+      NAME
+      <input type="text" name="name" th:value="${client.name}">
+    </label>
+    <label>
+      SURNAME
+      <input type="text" name="surname" th:value="${client.surname}">
+    </label>
+    <label>
+      Phone
+      <input type="tel" name="phone" th:value="${client.phone}">
+    </label>
+    <input type="submit" value="Confirm">
+  </form>
+
+</body>
+</html>

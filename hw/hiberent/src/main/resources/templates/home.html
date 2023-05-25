@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+    <nav th:fragment="navbar" style="display: flex; justify-content: center; margin-bottom: 2rem; gap: 1rem;">
+      <a th:href="@{/}">Clients</a>
+      <a th:href="@{/landlords}">Landlords</a>
+      <a th:href="@{/apartments}">Apartments</a>
+      <a th:href="@{/rentals}">Rentals</a>
+    </nav>
+</body>
+</html>
