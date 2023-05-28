@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import rk.hiberent.dtos.RentalSaving;
+import rk.hiberent.models.Apartment;
 import rk.hiberent.models.Rental;
 import rk.hiberent.repositories.ApartmentRepository;
-import rk.hiberent.repositories.LandlordRepository;
+import rk.hiberent.repositories.ClientRepository;
 import rk.hiberent.repositories.RentalRepository;
 
 import java.time.LocalDate;
@@ -16,35 +20,21 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
-public class HomeController {
-    @Autowired
-    private LandlordRepository landlordRepository;
-    @Autowired
-    private ApartmentRepository apartmentRepository;
+public class RentalController {
     @Autowired
     private RentalRepository rentalRepository;
-
-
-    @GetMapping("/landlords")
-    public String landlords(Model model) {
-        var landlords = landlordRepository.findAll();
-        model.addAttribute("landlords", landlords);
-        return "landlords";
-    }
-    @GetMapping("/apartments")
-    public String apartments(Model model) {
-        var apartments = apartmentRepository.findAll();
-        model.addAttribute("apartments", apartments);
-        return "apartments";
-    }
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private ApartmentRepository apartmentRepository;
 
     @GetMapping("/rentals")
     public String rentals(Model model,
-                          @RequestParam(required = false) String filter) {
-
+                          @RequestParam(required = false) String filter
+    ) {
         List<Rental> rentals;
         if(filter == null) {
-          rentals = rentalRepository.findAll();
+            rentals = rentalRepository.findAll();
         } else if(Objects.equals(filter, "start-this-month")) {
             LocalDate currentDate = LocalDate.now();
             LocalDate startDate = currentDate.with(TemporalAdjusters.firstDayOfMonth());
@@ -65,6 +55,39 @@ public class HomeController {
         }
 
         model.addAttribute("rentals", rentals);
-        return "rentals";
+        return "rental/list";
+    }
+
+    @PostMapping("/rentals/save")
+    public String save(RentalSaving rentalSaving) {
+        var client = clientRepository.getClientById(rentalSaving.getClientId());
+        if(client.isEmpty())  return "redirect:/rentals";
+
+        var apartment = apartmentRepository.getApartmentById(rentalSaving.getApartmentId());
+        if(apartment.isEmpty())  return "redirect:/rentals";
+
+        var rental = new Rental();
+        if(rentalSaving.getId() != null) rental.setId(rentalSaving.getId());
+        rental.setClient(client.get());
+        rental.setApartment(apartment.get());
+        rental.setEndDate(rentalSaving.getEndDate());
+        rental.setStartDate(rentalSaving.getStartDate());
+
+        rentalRepository.save(rental);
+        return "redirect:/rentals";
+    }
+
+    @GetMapping("/rentals/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        rentalRepository.deleteById(id);
+        return "redirect:/rentals";
+    }
+
+    @GetMapping("/rentals/edit/{id}")
+    public String edit(Model model, @PathVariable Long id) {
+        var rental = rentalRepository.getRentalById(id);
+        if(rental.isEmpty()) return "redirect:/rentals";
+        model.addAttribute("rental", rental.get());
+        return "rental/edit";
     }
 }

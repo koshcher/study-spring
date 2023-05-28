@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Landlords</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+  <th:block th:replace="~{home :: navbar}"></th:block>
+
+  <button onclick="toggleAddForm()" style="margin-bottom: 1rem;">Add</button>
+
+  <form hidden id="add" th:action="@{/landlords/save}" method="post" style="margin: 1rem 0;">
+    <div class="between">
+      <label>
+        NAME
+        <input type="text" name="name">
+      </label>
+      <label>
+        SURNAME
+        <input type="text" name="surname">
+      </label>
+      <label>
+        PHONE
+        <input type="tel" name="phone">
+      </label>
+    </div>
+    <input type="submit" value="Add">
+  </form>
+
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Phone</th>
+      <th></th>
+    </tr>
+    <tr th:each="landlord : ${landlords}">
+      <td th:text="${landlord.id}"></td>
+      <td th:text="${landlord.name}"></td>
+      <td th:text="${landlord.surname}"></td>
+      <td th:text="${landlord.phone}"></td>
+      <td>
+        <a th:href="@{/landlords/delete/{id}(id=${landlord.id})}">Delete</a>
+        <a th:href="@{/landlords/edit/{id}(id=${landlord.id})}">Edit</a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+<script>
+  function toggleAddForm() {
+    const form = document.getElementById('add');
+    form.hidden = !form.hidden;
+  }
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit rental</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+
+  <th:block th:replace="~{home :: navbar}"></th:block>
+
+  <h1 th:text="'Edit rental ' + ${rental.id}"></h1>
+
+  <form th:action="@{/rentals/save}" method="post">
+    <input type="hidden" name="id" th:value="${rental.id}">
+    <div class="between">
+      <label>
+        Client Id
+        <input type="number" name="clientId" th:value="${rental.client.id}">
+      </label>
+      <label>
+        Apartment Id
+        <input type="number" name="apartmentId" th:value="${rental.apartment.id}">
+      </label>
+    </div>
+    <div class="between">
+      <label>
+        Start Date
+        <input type="date" name="startDate" th:value="${rental.startDate}">
+      </label>
+      <label>
+        End Date
+        <input type="date" name="endDate" th:value="${rental.endDate}">
+      </label>
+    </div>
+    <input type="submit" value="Confirm">
+  </form>
+
+</body>
+</html>

@@ -26,7 +26,7 @@ public class ClientController {
         if(name == null) name = "";
         if(phone == null) phone = "";
         if(district == null) district = "";
-        if(price == null) price = 0;
+        if(price == null) price = Integer.MAX_VALUE;
 
         List<Client> clients;
 
@@ -54,7 +54,7 @@ public class ClientController {
 
     @GetMapping("/clients/edit/{id}")
     public String edit(Model model, @PathVariable Long id) {
-        var client = clientRepository.getClientsById(id);
+        var client = clientRepository.getClientById(id);
         if(client.isEmpty()) return "redirect:/clients";
         model.addAttribute("client", client.get());
         return "edit_client";

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
-    Optional<Client> getClientsById(Long aLong);
+    Optional<Client> getClientById(Long aLong);
 
     List<Client> findAllByNameContainingIgnoreCaseAndPhoneStartingWithAndPreferDistrictContainingIgnoreCaseAndPreferPriceLessThanEqual(String name, String phone, String preferDistrict, int preferPrice);
 

@@ -6,8 +6,10 @@ import rk.hiberent.models.Rental;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface RentalRepository extends JpaRepository<Rental, Long> {
+    Optional<Rental> getRentalById(Long id);
 
     List<Rental> findAllByEndDateBetween(LocalDate endDate, LocalDate endDate2);
 

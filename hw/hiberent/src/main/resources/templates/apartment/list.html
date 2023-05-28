@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Apartments</title>
+  <link rel="stylesheet" href="https://www.unpkg.com/mirabo/mirabo.css">
+</head>
+<body>
+  <th:block th:replace="~{home :: navbar}"></th:block>
+
+  <h3>Info</h3>
+  <p th:text="'Average price:' + ${avgPrice}"></p>
+  <p th:text="'Minimum price:' + ${minPrice}"></p>
+  <p th:text="'Maximum price:' + ${maxPrice}"></p>
+
+  <button onclick="toggleAddForm()" style="margin-bottom: 1rem;">Add</button>
+
+  <form hidden id="add" th:action="@{/apartments/save}" method="post" style="margin: 1rem 0;">
+    <div class="between">
+      <label>
+        Price
+        <input type="number" name="price">
+      </label>
+      <label>
+        District
+        <input type="text" name="district">
+      </label>
+    </div>
+    <div class="between">
+      <label>
+        Landlord Id
+        <input type="number" name="landlordId">
+      </label>
+      <label>
+        Room Count
+        <input type="number" name="roomCount">
+      </label>
+    </div>
+    <input type="submit" value="Add">
+  </form>
+
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Landlord Id</th>
+      <th>Landlord Name</th>
+      <th>Price</th>
+      <th>District</th>
+      <th>Room Count</th>
+      <th></th>
+    </tr>
+    <tr th:each="apartment : ${apartments}">
+      <td th:text="${apartment.id}"></td>
+      <td th:text="${apartment.landlord.id}"></td>
+      <td th:text="${apartment.landlord.name}"></td>
+      <td th:text="${apartment.price}"></td>
+      <td th:text="${apartment.district}"></td>
+      <td th:text="${apartment.roomCount}"></td>
+      <td>
+        <a th:href="@{/apartments/delete/{id}(id=${apartment.id})}">Delete</a>
+        <a th:href="@{/apartments/edit/{id}(id=${apartment.id})}">Edit</a>
+      </td>
+    </tr>
+  </table>
+</body>
+
+<script>
+  function toggleAddForm() {
+    const form = document.getElementById('add');
+    form.hidden = !form.hidden;
+  }
+</script>
+
+</html>
